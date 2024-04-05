@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnghw2hlq5ufu"]
+
+[ext_resource type="PackedScene" uid="uid://ckoummw32n36f" path="res://scenes/tile_map.tscn" id="1_80ggk"]
+[ext_resource type="PackedScene" uid="uid://byb2tydkkutpl" path="res://scenes/player.tscn" id="1_ucy1n"]
+[ext_resource type="PackedScene" uid="uid://cm0t1fjwmltae" path="res://scenes/slime.tscn" id="3_kkal4"]
+
+[node name="world" type="Node2D"]
+y_sort_enabled = true
+
+[node name="TileMap" parent="." instance=ExtResource("1_80ggk")]
+z_index = 1
+position = Vector2(2, 223)
+layer_2/z_index = 1
+
+[node name="player" parent="." instance=ExtResource("1_ucy1n")]
+z_index = 2
+position = Vector2(13, 57)
+
+[node name="slime" parent="." instance=ExtResource("3_kkal4")]
+z_index = 2
+position = Vector2(217, 129)

@@ -1,11 +1,23 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnghw2hlq5ufu"]
+[gd_scene load_steps=8 format=3 uid="uid://dnghw2hlq5ufu"]
 
 [ext_resource type="PackedScene" uid="uid://ckoummw32n36f" path="res://scenes/tile_map.tscn" id="1_80ggk"]
 [ext_resource type="PackedScene" uid="uid://byb2tydkkutpl" path="res://scenes/player.tscn" id="1_ucy1n"]
+[ext_resource type="Script" path="res://world.gd" id="1_x8iyr"]
 [ext_resource type="PackedScene" uid="uid://cm0t1fjwmltae" path="res://scenes/slime.tscn" id="3_kkal4"]
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_2f54t"]
+a = Vector2(-60, 5)
+b = Vector2(-474, 5)
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_6iu6y"]
+b = Vector2(2, 224)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uei7p"]
+size = Vector2(37, 28)
 
 [node name="world" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_x8iyr")
 
 [node name="TileMap" parent="." instance=ExtResource("1_80ggk")]
 z_index = 1
@@ -13,9 +25,31 @@ position = Vector2(2, 223)
 layer_2/z_index = 1
 
 [node name="player" parent="." instance=ExtResource("1_ucy1n")]
+light_mask = 3
 z_index = 2
-position = Vector2(13, 57)
+position = Vector2(33, 53)
 
 [node name="slime" parent="." instance=ExtResource("3_kkal4")]
 z_index = 2
 position = Vector2(217, 129)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="south_wall" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(476, 218)
+shape = SubResource("SegmentShape2D_2f54t")
+
+[node name="left_wall" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("SegmentShape2D_6iu6y")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PackedVector2Array(2, 0, 136, 0, 169, 0, 169, -28, 207, -28, 206, 0, 262, 0, 262, 40, 290, 59, 295, 76, 418, 79, 417, 223, 437, 223, 434, -45, -2, -41)
+
+[node name="cliffside_transition_point" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cliffside_transition_point"]
+position = Vector2(186.5, -15)
+shape = SubResource("RectangleShape2D_uei7p")
+
+[connection signal="body_entered" from="cliffside_transition_point" to="." method="_on_cliffside_transition_point_body_entered"]
+[connection signal="body_exited" from="cliffside_transition_point" to="." method="_on_cliffside_transition_point_body_exited"]

@@ -1,0 +1,9 @@
+- start
+
+Slime: Hello
+- goodbye. => END
+- hello
+	Slime: Nice To Meet You
+	=> END
+
+=> END

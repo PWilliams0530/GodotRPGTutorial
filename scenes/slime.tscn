@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cm0t1fjwmltae"]
+[gd_scene load_steps=22 format=3 uid="uid://cm0t1fjwmltae"]
 
 [ext_resource type="Script" path="res://scripts/slime.gd" id="1_guhos"]
 [ext_resource type="Texture2D" uid="uid://bom68pf3qc815" path="res://art/mystic_woods_free_2/sprites/characters/slime.png" id="1_ln5eg"]
@@ -132,6 +132,9 @@ radius = 48.1664
 [sub_resource type="CircleShape2D" id="CircleShape2D_kmvut"]
 radius = 6.32456
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_qunnt"]
+radius = 15.0
+
 [node name="slime" type="CharacterBody2D"]
 script = ExtResource("1_guhos")
 
@@ -154,5 +157,18 @@ position = Vector2(0, -9)
 shape = SubResource("CircleShape2D_kmvut")
 debug_color = Color(0.941176, 0.137255, 0.494118, 0.419608)
 
+[node name="enemy_hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="enemy_hitbox"]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_qunnt")
+debug_color = Color(0.94902, 0.137255, 0.466667, 0.419608)
+
+[node name="take_damage_cooldown" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="body_entered" from="detection_area" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="detection_area" to="." method="_on_detection_area_body_exited"]
+[connection signal="body_entered" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_entered"]
+[connection signal="body_exited" from="enemy_hitbox" to="." method="_on_enemy_hitbox_body_exited"]
+[connection signal="timeout" from="take_damage_cooldown" to="." method="_on_take_damage_cooldown_timeout"]

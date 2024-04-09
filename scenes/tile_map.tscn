@@ -108,7 +108,6 @@ texture = ExtResource("3_h082t")
 0:0/0/physics_layer_0/angular_velocity = 0.0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-6.09375, 2.35938, 6.28125, 2.42188, 4.75, 4.76562, -4.46875, 4.82812)
 0:1/0 = 0
-0:1/0/y_sort_origin = -2
 0:1/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:1/0/physics_layer_0/angular_velocity = 0.0
 0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, 0, -1.5, -6.5, 1.5, -6.5, 3.5, -5, 8, 0, 6.5, 5.5, 4, 8, 1, 8, -4, 8, -7, 3.5)
@@ -149,6 +148,8 @@ sources/1 = SubResource("TileSetAtlasSource_g8hhr")
 sources/2 = SubResource("TileSetAtlasSource_i3k50")
 
 [node name="TileMap" type="TileMap"]
+light_mask = 5
+visibility_layer = 5
 y_sort_enabled = true
 tile_set = SubResource("TileSet_xeaoh")
 format = 2
